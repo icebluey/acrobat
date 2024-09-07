@@ -25,13 +25,13 @@ echo
 ls -la --color "${_old_file}"
 ls -la --color "${lastmsp}"
 echo
-_MAJOR_ver="$(ls -1 ${lastmsp} | sort -V | tail -n 1 | tr -dc '0-9' | cut -c 1-2)"
-_MINOR_ver="$(ls -1 ${lastmsp} | sort -V | tail -n 1 | tr -dc '0-9' | cut -c 3-5 | sed 's/^0*//g')"
-_PATCH_ver="$(ls -1 ${lastmsp} | sort -V | tail -n 1 | tr -dc '0-9' | cut -c 6- | sed 's/^0*//g')"
+_MAJOR_ver="$(ls -1 ${lastmsp} | sort -V | tail -n 1 | sed 's|x64||' | tr -dc '0-9' | cut -c 1-2)"
+_MINOR_ver="$(ls -1 ${lastmsp} | sort -V | tail -n 1 | sed 's|x64||' | tr -dc '0-9' | cut -c 3-5 | sed 's/^0*//g')"
+_PATCH_ver="$(ls -1 ${lastmsp} | sort -V | tail -n 1 | sed 's|x64||' | tr -dc '0-9' | cut -c 6- | sed 's/^0*//g')"
 echo "Version ${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}"
 echo
-mkdir Acrobat_DC_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}
-cd Acrobat_DC_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}/
+mkdir Acrobat_DC_x64_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}
+cd Acrobat_DC_x64_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}/
 7z x -mmt2 ../"${_old_file}"
 sleep 1
 [[ -d "Adobe Acrobat" ]] && mv -v "Adobe Acrobat" Acrobat
@@ -51,10 +51,10 @@ cd ../
 echo
 ls -lah --color
 echo
-7z a -mmt2 -tzip /tmp/"Acrobat_DC_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}".zip "Acrobat_DC_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}"
+7z a -mmt2 -tzip /tmp/"Acrobat_DC_x64_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}".zip "Acrobat_DC_x64_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}"
 sleep 5
 cd /tmp
-sha256sum "Acrobat_DC_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}".zip > "Acrobat_DC_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}".zip.sha256
+sha256sum "Acrobat_DC_x64_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}".zip > "Acrobat_DC_x64_${_MAJOR_ver}.${_MINOR_ver}.${_PATCH_ver}".zip.sha256
 
 cd /tmp
 rm -fr "${_tmp_dir}"
