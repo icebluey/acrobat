@@ -31,7 +31,9 @@ sleep 2
 /usr/bin/7z x Acrobat_DC_Web_x64_WWMUI.zip
 sleep 2
 rm -f Acrobat_DC_Web_x64_WWMUI.zip
-mv 'Adobe Acrobat' AdobeAcrobat
+mv *cro* .1.tmp
+sleep 1
+mv .1.tmp AdobeAcrobat
 
 _org_msp_ver=$(ls -1 AdobeAcrobat/AcrobatDCx64Upd*.msp | sort -V | tail -n1 | sed -e 's|.*Upd||g' -e 's|\.msp.*||g')
 _patch_release_note="$(curl 'https://www.adobe.com/devnet-docs/acrobatetk/tools/ReleaseNotesDC/index.html#installers' 2>&1 | grep -i '<link rel="next" title=.*" href="continuous/' | sed 's/"/\n/g' | grep -i '^continuous/dccontinuous.*20[23][0-9].*.html')"
