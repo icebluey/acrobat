@@ -18,7 +18,7 @@ jobs:
           sudo apt install -y bash wget openssl curl ca-certificates binutils coreutils findutils;
           sudo apt reinstall -y bash wget openssl curl ca-certificates binutils coreutils findutils;
           sudo ln -svf bash /bin/sh;
-          sudo /bin/rm -fr /tmp/*
+          sudo /bin/rm -fr /tmp/*;
           sudo df -Th
 
       - name: Zip
