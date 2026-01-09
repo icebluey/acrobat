@@ -14,8 +14,8 @@ jobs:
         run: >
           sudo apt update -y -qqq;
           sudo apt autoremove --purge -y needrestart || true;
-          sudo apt install -y bash wget openssl curl;
-          sudo apt reinstall -y bash wget openssl curl;
+          sudo apt install -y bash wget openssl curl ca-certificates;
+          sudo apt reinstall -y bash wget openssl curl ca-certificates;
           sudo ln -svf bash /bin/sh;
           sudo /bin/rm -fr /tmp/*
 
