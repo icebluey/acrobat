@@ -19,7 +19,7 @@ jobs:
           sudo apt reinstall -y bash wget openssl curl ca-certificates binutils coreutils findutils;
           sudo ln -svf bash /bin/sh;
           sudo /bin/rm -fr /tmp/*
-          echo; sudo df -Th; echo
+          sudo df -Th
 
       - name: Zip
         run: sudo /bin/bash rezip-acrobat.sh
