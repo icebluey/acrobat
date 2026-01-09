@@ -1,0 +1,40 @@
+name: zip
+on:
+  #push:
+  #  branches: [ "master" ]
+  #pull_request:
+  #  branches: [ "master" ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup
+        run: >
+          sudo apt update -y -qqq;
+          sudo apt autoremove --purge -y needrestart || true;
+          sudo apt install -y bash wget openssl curl;
+          sudo ln -svf bash /bin/sh;
+          sudo apt upgrade -y -qqq;
+          sudo /bin/rm -fr /tmp/*
+
+      - name: Zip
+        run: sudo /bin/bash rezip-acrobat.sh
+
+      - name: Generate release tag env
+        run: |
+          _release_ver="$(/bin/ls -1 /tmp/_output/Acrobat_DC_Web_x64_WWMUI*.zip | sed -e 's|.*-||g' -e 's|\.zip.*||g' | tail -n1)"
+          echo "_release_ver=${_release_ver}" >> $GITHUB_ENV
+
+      - name: Upload files
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env._release_ver }}
+          files: /tmp/_output/*.zip*
+
+      - name: Delete
+        run: |
+          sed -e "/^_release_ver=/d" -i $GITHUB_ENV
+          sudo rm -fr /tmp/_output
+
