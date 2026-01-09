@@ -14,11 +14,12 @@ jobs:
         run: >
           sudo apt update -y -qqq;
           sudo apt autoremove --purge -y needrestart || true;
-          sudo apt autoremove --purge -y '^docker.*' '^container.*' crun runc '^podman.*' firefox google-chrome-stable '^libmono-.*' '^mono-.*' '^mysql-.*' '^postgresql-.*' '^php.*'
+          sudo apt autoremove --purge -y '^docker.*' '^container.*' crun runc '^podman.*' firefox google-chrome-stable '^libmono-.*' '^mono-.*' '^mysql-.*' '^postgresql-.*' '^php.*' || true;
           sudo apt install -y bash wget openssl curl ca-certificates;
           sudo apt reinstall -y bash wget openssl curl ca-certificates;
           sudo ln -svf bash /bin/sh;
           sudo /bin/rm -fr /tmp/*
+          echo; sudo df -Th; echo
 
       - name: Zip
         run: sudo /bin/bash rezip-acrobat.sh
