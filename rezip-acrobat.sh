@@ -31,6 +31,7 @@ sleep 2
 /usr/bin/7z x Acrobat_DC_Web_x64_WWMUI.zip
 sleep 2
 rm -f Acrobat_DC_Web_x64_WWMUI.zip
+/bin/ls -la
 mv *cro* .1.tmp
 sleep 1
 mv .1.tmp AdobeAcrobat
