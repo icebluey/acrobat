@@ -11,7 +11,7 @@ _install_7z() {
     #_7zip_ver=$(echo ${_7zip_loc} | sed -e 's|.*7z||g' -e 's|-linux.*||g')
     wget -c -t 9 -T 9 "https://www.7-zip.org/${_7zip_loc}"
     sleep 1
-    tar -xof *.tar.*
+    tar -xof *.tar*
     sleep 1
     rm -f *.tar*
     find 7zzs -type f -exec file '{}' \; | sed -n -e 's/^\(.*\):[  ]*ELF.*, not stripped.*/\1/p' | xargs --no-run-if-empty -I '{}' strip '{}'
