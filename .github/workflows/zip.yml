@@ -15,8 +15,8 @@ jobs:
           sudo apt update -y -qqq;
           sudo apt autoremove --purge -y needrestart || true;
           sudo apt install -y bash wget openssl curl;
+          sudo apt reinstall -y bash wget openssl curl;
           sudo ln -svf bash /bin/sh;
-          sudo apt upgrade -y -qqq;
           sudo /bin/rm -fr /tmp/*
 
       - name: Zip
