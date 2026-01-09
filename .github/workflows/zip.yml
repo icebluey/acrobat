@@ -32,6 +32,7 @@ jobs:
         with:
           tag_name: v${{ env._release_ver }}
           files: /tmp/_output/*.zip*
+          overwrite_files: true
 
       - name: Delete
         run: |
