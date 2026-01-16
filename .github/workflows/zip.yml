@@ -14,6 +14,8 @@ jobs:
         run: >
           sudo apt update -y -qqq;
           sudo apt autoremove --purge -y needrestart || : ;
+          sudo systemctl stop snapd.service snapd.socket >/dev/null 2>&1 || : ;
+          sudo systemctl disable snapd.service snapd.socket >/dev/null 2>&1 || : ;
           sudo systemctl stop docker.service containerd.service >/dev/null 2>&1 || : ;
           sudo systemctl disable docker.service containerd.service >/dev/null 2>&1 || : ;
           sudo apt autoremove --purge -y '^docker.*' '^container.*' '^podman.*' crun runc '^php.*' '^lxd.*' '^snap.*';
