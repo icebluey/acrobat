@@ -26,7 +26,8 @@ _install_7z
 set -euo pipefail
 _tmp_dir="$(mktemp -d)"
 cd "${_tmp_dir}"
-wget -c -t 9 -T 9 'https://trials.adobe.com/AdobeProducts/APRO/Acrobat_HelpX/win32/Acrobat_DC_Web_x64_WWMUI.zip'
+wget -q -c -t 9 -T 9 'https://trials.adobe.com/AdobeProducts/APRO/Acrobat_HelpX/win32/Acrobat_DC_Web_x64_WWMUI.zip'
+/bin/ls -la
 sleep 2
 /usr/bin/7z x Acrobat_DC_Web_x64_WWMUI.zip
 sleep 2
@@ -48,7 +49,8 @@ echo "new MSP patch: ${_new_msp_ver:0:2}.${_new_msp_ver:2:3}.${_new_msp_ver:5}"
 echo '###################################'
 echo
 if [ "${_new_msp_ver}" -gt "${_org_msp_ver}" ]; then
-    wget -c -t 9 -T 9 "${_msp_url}"
+    wget -q -c -t 9 -T 9 "${_msp_url}"
+    /bin/ls -la
     sleep 2
     _new_msp_filename="$(/bin/ls -1 AcrobatDCx64Upd*.msp | sort -V | tail -n1)"
     rm -fv AdobeAcrobat/AcrobatDCx64Upd*.msp
@@ -74,4 +76,3 @@ cd /tmp
 rm -fr "${_tmp_dir}"
 echo ' done'
 exit
-
