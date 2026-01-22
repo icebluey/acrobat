@@ -65,7 +65,7 @@ cat AdobeAcrobat/setup.ini | grep '^PATCH='
 sleep 2
 /usr/bin/7z a -r -mmt=$(nproc) -tzip "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.zip" AdobeAcrobat
 sleep 2
-openssl dgst -r -sha256 "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.zip" > "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.zip".sha256
+sha256sum -b "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.zip" > "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.zip".sha256
 rm -fr AdobeAcrobat
 rm -fr /tmp/_output
 mkdir /tmp/_output
