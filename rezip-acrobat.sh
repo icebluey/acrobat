@@ -7,17 +7,19 @@ _install_7z() {
     set -euo pipefail
     local _tmp_dir="$(mktemp -d)"
     cd "${_tmp_dir}"
-    _7zip_loc=$(wget -qO- 'https://www.7-zip.org/download.html' | grep -i '\-linux-x64.tar' | grep -i 'href="' | sed 's|"|\n|g' | grep -i '\-linux-x64.tar' | sort -V | tail -n 1)
-    #_7zip_ver=$(echo ${_7zip_loc} | sed -e 's|.*7z||g' -e 's|-linux.*||g')
-    wget -c -t 9 -T 9 "https://www.7-zip.org/${_7zip_loc}"
-    sleep 1
-    tar -xof *.tar*
-    sleep 1
-    rm -f *.tar*
-    find 7zzs -type f -exec file '{}' \; | sed -n -e 's/^\(.*\):[  ]*ELF.*, not stripped.*/\1/p' | xargs --no-run-if-empty -I '{}' strip '{}'
+    #_7zip_loc="$(wget -qO- 'https://www.7-zip.org/download.html' | grep -i '\-linux-x64.tar' | grep -i 'href="' | sed 's|"|\n|g' | grep -i '\-linux-x64.tar' | sort -V | tail -n 1)"
+    #wget -q -c -t 9 -T 9 "https://www.7-zip.org/${_7zip_loc}"
+    #tar -xof *.tar*
+    #sleep 1
+    #rm -f *.tar*
+    #file 7zzs | sed -n -E 's/^(.*):[[:space:]]*ELF.*, not stripped.*/\1/p' | xargs --no-run-if-empty -I '{}' strip '{}'
+    #rm -f 7z && mv 7zzs 7z
+    wget -q -c -t 9 -T 9 'https://github.com/icebluey/7zip-zstd/releases/latest/download/7z'
     rm -f /usr/bin/7z
     rm -f /usr/local/bin/7z
-    install -v -c -m 0755 7zzs /usr/bin/7z
+    install -v -c -m 0755 7z /usr/bin/7z
+    cp -f /usr/bin/7z /usr/local/bin/7z
+    /usr/bin/7z --version 2>/dev/null || true
     cd /tmp
     rm -fr "${_tmp_dir}"
 }
@@ -63,13 +65,13 @@ fi
 /bin/ls -la AdobeAcrobat/
 cat AdobeAcrobat/setup.ini | grep '^PATCH='
 sleep 2
-/usr/bin/7z a -r -mmt=$(nproc) -tzip "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.zip" AdobeAcrobat
+/usr/bin/7z a -r -mmt$(($(nproc) - 1)) -mx9 -t7z "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.7z" AdobeAcrobat
 sleep 2
-sha256sum -b "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.zip" > "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.zip".sha256
+sha256sum -b "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.7z" > "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.7z".sha256
 rm -fr AdobeAcrobat
 rm -fr /tmp/_output
 mkdir /tmp/_output
-mv -f *.zip* /tmp/_output/
+mv -f *.7z* /tmp/_output/
 sleep 1
 /bin/ls -la /tmp/_output/
 cd /tmp
