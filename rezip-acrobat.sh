@@ -48,8 +48,8 @@ _msp_url="$(curl "https://www.adobe.com/devnet-docs/acrobatetk/tools/ReleaseNote
 _new_msp_ver=$(echo "${_msp_url}" | sed -e 's|.*Upd||g' -e 's|\.msp.*||g')
 echo
 echo '###################################'
-echo "original MSP patch: ${_org_msp_ver:0:2}.${_org_msp_ver:2:3}.${_org_msp_ver:5}"
-echo "new MSP patch: ${_new_msp_ver:0:2}.${_new_msp_ver:2:3}.${_new_msp_ver:5}"
+echo "original MSP patch: ${_org_msp_ver:0:2}.${_org_msp_ver:2:3}.${_org_msp_ver:5:2}.${_org_msp_ver:7}"
+echo "new MSP patch: ${_new_msp_ver:0:2}.${_new_msp_ver:2:3}.${_new_msp_ver:5:2}.${_new_msp_ver:7}"
 echo '###################################'
 echo
 if [ "${_new_msp_ver}" -gt "${_org_msp_ver}" ]; then
