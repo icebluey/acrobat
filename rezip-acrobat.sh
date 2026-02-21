@@ -67,7 +67,7 @@ fi
 /bin/ls -la AdobeAcrobat/
 cat AdobeAcrobat/setup.ini | grep '^PATCH='
 sleep 2
-/usr/bin/7z a -r -mmt$(($(nproc) - 1)) -mx9 -t7z "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.7z" AdobeAcrobat
+/usr/bin/7z a -mmt$(($(nproc) - 1)) -mx9 -t7z "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.7z" AdobeAcrobat
 sleep 2
 sha256sum -b "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.7z" > "Acrobat_DC_Web_x64_WWMUI-${_patch_ver}.7z".sha256
 rm -fr AdobeAcrobat
