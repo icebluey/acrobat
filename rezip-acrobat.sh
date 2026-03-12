@@ -37,7 +37,7 @@ sleep 2
 sleep 2
 rm -f Acrobat_DC_Web_x64_WWMUI.zip
 /bin/ls -la
-mv *cro* .1.tmp
+mv -v *cro* .1.tmp 2>/dev/null || mv -v ESD/*cro* .1.tmp 2>/dev/null
 sleep 1
 mv .1.tmp AdobeAcrobat
 /bin/ls -la
